@@ -2,11 +2,11 @@ namespace Trabajo_Practico___Pruebas_de_software
 {
     public class EjercicioA : HttpClientBase
     {
-        private async Task<bool> RealizarSolicitudAsync(string url)
+        private async Task<bool> Solicitud(string url)
         {
             try
             {
-                string responseBody = await base.RealizarSolicitudAsync(url);
+                string responseBody = await base.RealizarSolicitud(url);
                 return bool.Parse(responseBody);
             }
             catch (HttpRequestException e)
@@ -32,7 +32,7 @@ namespace Trabajo_Practico___Pruebas_de_software
             string url = $"https://iso-uncaus.somee.com/iso/Test/HabilitadoParaVotar/{edad}";
 
             // Acción
-            bool resultado = await RealizarSolicitudAsync(url);
+            bool resultado = await Solicitud(url);
 
             // Assert
             Assert.Equal(esperado, resultado);

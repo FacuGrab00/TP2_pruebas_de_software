@@ -2,11 +2,11 @@
 {
     public class EjercicioC : HttpClientBase
     {
-        private async Task<bool> RealizarSolicitudAsync(string url)
+        private async Task<bool> Solicitud(string url)
         {
             try
             {
-                string responseBody = await base.RealizarSolicitudAsync(url);
+                string responseBody = await base.RealizarSolicitud(url);
                 return bool.Parse(responseBody);
             }
             catch (HttpRequestException e)
@@ -22,7 +22,7 @@
         {
             string password = "Hola2024%";
             string url = $"https://iso-uncaus.somee.com/iso/Test/ValidarPassword/{password}";
-            bool resultado = await RealizarSolicitudAsync(url);
+            bool resultado = await Solicitud(url);
             Assert.True(resultado);
         }
 
@@ -35,7 +35,7 @@
         async public void EsPasswordSegura_CuandoEsInvalido_RetornaFalse(string password)
         {
             string url = $"https://iso-uncaus.somee.com/iso/Test/CalcularDescuento/{password}";
-            bool result = await RealizarSolicitudAsync(url);
+            bool result = await Solicitud(url);
             Assert.False(result);
         }
 
