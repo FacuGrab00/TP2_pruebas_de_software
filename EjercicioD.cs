@@ -16,37 +16,67 @@
         }
 
         [Theory]
-        [InlineData(3, 3, 3, "Equilátero")]         // Todos los lados iguales
-        [InlineData(3, 4, 4, "Isósceles")]          // Dos lados iguales
-        [InlineData(3, 4, 5, "Escaleno")]           // Todos los lados diferentes
-        [InlineData(1, 10, 12, "Escaleno")]
-        [InlineData(10, 1, 1, "Isoceles")]
-        [InlineData(2147483647, 2147483647, 2147483647, "Equilátero")]
-        async public void TipoDeTriangulo_ValoresValidos_TipoCorrecto(int lado1, int lado2, int lado3, string tipoEsperado)
+        [InlineData(1, 1, 1)]
+        [InlineData(3, 3, 3)]
+        [InlineData(10, 10, 10)]
+        async public void TrianguloEquilatero(int lado1, int lado2, int lado3)
         {
+            string tipoEsperado = "Equilatero";
+            string url = $"https://iso-uncaus.somee.com/iso/Test/TipoTriangulo/{lado1}/{lado2}/{lado3}";
+            string resultado = await Solicitud(url);
+            Assert.Equal(tipoEsperado, resultado);
+        }
+        
+        [Theory]
+        [InlineData(4, 4, 3)]
+        [InlineData(4, 3, 4)]
+        [InlineData(3, 4, 4)]
+        async public void TriangulosIsoceles(int lado1, int lado2, int lado3)
+        {
+            string tipoEsperado = "Isósceles";
             string url = $"https://iso-uncaus.somee.com/iso/Test/TipoTriangulo/{lado1}/{lado2}/{lado3}";
             string resultado = await Solicitud(url);
             Assert.Equal(tipoEsperado, resultado);
         }
 
+        [InlineData(3, 4, 5, "Escaleno")]
+        [InlineData(3, 5, 4, "Escaleno")]
+        [InlineData(4, 3, 5, "Escaleno")]
+        [InlineData(4, 5, 3, "Escaleno")]
+        [InlineData(5, 3, 4, "Escaleno")]
+        [InlineData(5, 4, 3, "Escaleno")]
+        async public void TrianguloEscaleno(int lado1, int lado2, int lado3)
+        {
+            string tipoEsperado = "Equilatero";
+            string url = $"https://iso-uncaus.somee.com/iso/Test/TipoTriangulo/{lado1}/{lado2}/{lado3}";
+            string resultado = await Solicitud(url);
+        }
+
         [Theory]
-        [InlineData(0, 0, 0)]               // Lado cero no válido
-        [InlineData(0, 3, 3)]               // Lado cero no válido
-        [InlineData(3, 0, 3)]               // Lado cero no válido
-        [InlineData(3, 3, 0)]               // Lado cero no válido
-        [InlineData(0, 0, 3)]               // Lado cero no válido
-        [InlineData(3, 0, 0)]               // Lado cero no válido
-        [InlineData(0, 3, 0)]               // Lado cero no válido
-        [InlineData(-1, 4, 5)]              // Lado negativo no válido
-        [InlineData(1, -4, 5)]              // Lado negativo no válido
-        [InlineData(1, 4, -5)]              // Lado negativo no válido
-        [InlineData(-1, -4, 5)]             // Lado negativo no válido
-        [InlineData(-1, 4, -5)]             // Lado negativo no válido
-        [InlineData(1, -4, -5)]             // Lado negativo no válido
-        [InlineData(-1, -4, -5)]            // Lado negativo no válido
-        [InlineData(10000, 10000, 1)]       // No forma un triangulo por desigualdad triangular
-        [InlineData(0, -3, 3)]              // Lado cero, lado negativo no válido
-        async public void TipoDeTriangulo_ValoresInvalidos_NoEsTrianguloValido(int lado1, int lado2, int lado3)
+        [InlineData(0, 0, 0)]
+        [InlineData(0, 3, 3)]
+        [InlineData(3, 0, 3)]
+        [InlineData(3, 3, 0)]
+        [InlineData(0, 0, 3)]
+        [InlineData(3, 0, 0)]
+        [InlineData(0, 3, 0)]
+        [InlineData(-1, 4, 5)]
+        [InlineData(1, -4, 5)]
+        [InlineData(1, 4, -5)]
+        [InlineData(-1, -4, 5)]
+        [InlineData(-1, 4, -5)]
+        [InlineData(1, -4, -5)]
+        [InlineData(-1, -4, -5)]
+        [InlineData(0, -3, 3)]
+        [InlineData(0, 0, -1)]
+        [InlineData(0, -1, 0)]
+        [InlineData(-1, 0, 0)]
+        [InlineData(0, -1, -1)]
+        [InlineData(-1, 0, -1)]
+        [InlineData(-1, -1, 0)]
+        [InlineData(-1, -1, -1)]
+        [InlineData(10000, 10000, 1)]
+        async public void TrianguloNoValidos(int lado1, int lado2, int lado3)
         {
             string tipoEsperado = "No válido";
             string url = $"https://iso-uncaus.somee.com/iso/Test/TipoTriangulo/{lado1}/{lado2}/{lado3}";

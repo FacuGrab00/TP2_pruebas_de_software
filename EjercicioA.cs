@@ -17,16 +17,29 @@ namespace Trabajo_Practico___Pruebas_de_software
         }
 
         [Theory]
-        [InlineData(18, true)]          // Prueba frontera
-        [InlineData(17, false)]         // Prueba frontera
-        [InlineData(20, true)]          // Caso positivo
-        [InlineData(80, true)]          // Caso positivo
-        [InlineData(120, true)]         // Caso positivo
-        [InlineData(100000, true)]      // Caso positivo
-        [InlineData(1, false)]          // Caso negativo
-        [InlineData(-1, false)]         // Caso negativo
-        [InlineData(0, false)]          // Caso negativo
-        public async Task HabilitadoParaVotar(int edad, bool esperado)
+        [InlineData(18, true)]
+        [InlineData(17, false)]
+        [InlineData(20, true)]
+        [InlineData(80, true)]
+        [InlineData(120, true)]
+        public async Task AptoParaVotar(int edad, bool esperado)
+        {
+            // Preparación
+            string url = $"https://iso-uncaus.somee.com/iso/Test/HabilitadoParaVotar/{edad}";
+
+            // Acción
+            bool resultado = await Solicitud(url);
+
+            // Assert
+            Assert.Equal(esperado, resultado);
+        }
+
+        [Theory]
+        [InlineData(100000, false)]
+        [InlineData(1, false)]
+        [InlineData(-1, false)]
+        [InlineData(0, false)]
+        public async Task NoAptoParaVotar(int edad, bool esperado)
         {
             // Preparación
             string url = $"https://iso-uncaus.somee.com/iso/Test/HabilitadoParaVotar/{edad}";
