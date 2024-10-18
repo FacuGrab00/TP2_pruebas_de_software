@@ -17,12 +17,11 @@ namespace Trabajo_Practico___Pruebas_de_software
         }
 
         [Theory]
-        [InlineData(18, true)]
-        [InlineData(17, false)]
-        [InlineData(20, true)]
-        [InlineData(80, true)]
-        [InlineData(120, true)]
-        public async Task AptoParaVotar(int edad, bool esperado)
+        [InlineData(18)]
+        [InlineData(20)]
+        [InlineData(80)]
+        [InlineData(120)]
+        public async Task AptoParaVotar(int edad)
         {
             // Preparación
             string url = $"https://iso-uncaus.somee.com/iso/Test/HabilitadoParaVotar/{edad}";
@@ -31,15 +30,15 @@ namespace Trabajo_Practico___Pruebas_de_software
             bool resultado = await Solicitud(url);
 
             // Assert
-            Assert.Equal(esperado, resultado);
+            Assert.True(resultado);
         }
 
         [Theory]
-        [InlineData(100000, false)]
-        [InlineData(1, false)]
-        [InlineData(-1, false)]
-        [InlineData(0, false)]
-        public async Task NoAptoParaVotar(int edad, bool esperado)
+        [InlineData(0)]
+        [InlineData(1)]
+        [InlineData(10)]
+        [InlineData(17)]
+        public async Task NoAptoParaVotar(int edad)
         {
             // Preparación
             string url = $"https://iso-uncaus.somee.com/iso/Test/HabilitadoParaVotar/{edad}";
@@ -48,7 +47,24 @@ namespace Trabajo_Practico___Pruebas_de_software
             bool resultado = await Solicitud(url);
 
             // Assert
-            Assert.Equal(esperado, resultado);
+            Assert.False(resultado);
+        }
+
+
+        [Theory]
+        [InlineData(1000)]
+        [InlineData(150)]
+        [InlineData(-1)]
+        public async Task NoValidosParaVotar(int edad)
+        {
+            // Preparación
+            string url = $"https://iso-uncaus.somee.com/iso/Test/HabilitadoParaVotar/{edad}";
+
+            // Acción
+            bool resultado = await Solicitud(url);
+
+            // Assert
+            Assert.False(resultado);
         }
     }
 }

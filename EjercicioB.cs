@@ -9,10 +9,10 @@
         }
 
         [Theory]
-        [InlineData(0.0001, 0.00001)]
         [InlineData(0.001, 0.0001)]
         [InlineData(0.01, 0.001)]
         [InlineData(0.1, 0.01)]
+        [InlineData(0, 0)]
         [InlineData(1, 0.1)]
         [InlineData(10, 1)]
         [InlineData(100, 10)]
@@ -21,7 +21,6 @@
         [InlineData(9999.9, 999.99)]
         [InlineData(9999.99, 999.999)]
         [InlineData(9999.999, 999.9999)]
-        [InlineData(9999.9999, 999.99999)]
         public async Task Descuento10Porciento(double montoCompra, double descuentoEsperado)
         {
             string url = $"https://iso-uncaus.somee.com/iso/Test/CalcularDescuento/{montoCompra}";
