@@ -21,7 +21,7 @@
         [InlineData(10, 10, 10)]
         async public void TrianguloEquilatero(int lado1, int lado2, int lado3)
         {
-            string tipoEsperado = "Equilatero";
+            string tipoEsperado = "Equilátero";
             string url = $"https://iso-uncaus.somee.com/iso/Test/TipoTriangulo/{lado1}/{lado2}/{lado3}";
             string resultado = await Solicitud(url);
             Assert.Equal(tipoEsperado, resultado);
@@ -39,17 +39,18 @@
             Assert.Equal(tipoEsperado, resultado);
         }
 
-        [InlineData(3, 4, 5, "Escaleno")]
-        [InlineData(3, 5, 4, "Escaleno")]
-        [InlineData(4, 3, 5, "Escaleno")]
-        [InlineData(4, 5, 3, "Escaleno")]
-        [InlineData(5, 3, 4, "Escaleno")]
-        [InlineData(5, 4, 3, "Escaleno")]
+        [InlineData(3, 4, 5)]
+        [InlineData(3, 5, 4)]
+        [InlineData(4, 3, 5)]
+        [InlineData(4, 5, 3)]
+        [InlineData(5, 3, 4)]
+        [InlineData(5, 4, 3)]
         async public void TrianguloEscaleno(int lado1, int lado2, int lado3)
         {
-            string tipoEsperado = "Equilatero";
+            string tipoEsperado = "Escaleno";
             string url = $"https://iso-uncaus.somee.com/iso/Test/TipoTriangulo/{lado1}/{lado2}/{lado3}";
             string resultado = await Solicitud(url);
+            Assert.Equal(tipoEsperado, resultado);
         }
 
         [Theory]

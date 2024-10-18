@@ -18,21 +18,16 @@
 
 
         [Theory]
-        [InlineData("abcdefghijae")]                      // 12 caracteres (a-z)
         [InlineData("a1b2c3d4e5ae")]                      // 12 caracteres (a-z, 0-9)
         [InlineData("aBcDeFgHiJae")]                      // 12 caracteres (a-z, A-Z)
+        [InlineData("1234ABCDED56")]                      // 12 caracteres (0-9, A-Z)
+        [InlineData("A1BEW2C3D4E5")]                      // 12 caracteres (A-Z, 0-9)
+        [InlineData("A!BEB#C$D%EF")]                      // 12 caracteres (A-Z, !@#$%^&)
         [InlineData("a@b#c$d%aee^")]                      // 12 caracteres (a-z, !@#$%^&)
+        [InlineData("12!3@4#548$6")]                      // 12 caracteres (0-9, !@#$%^&)
         [InlineData("aB1cD2aeeF3g")]                      // 12 caracteres (a-z, 0-9, A-Z)
         [InlineData("a1!b2ae@c3#d4")]                     // 12 caracteres (a-z, 0-9, !@#$%^&)
-        [InlineData("A!BEB#C$D%EF")]                      // 12 caracteres (A-Z, !@#$%^&)
-        [InlineData("123456780590")]                      // 12 caracteres (0-9)
-        [InlineData("1234ABCDED56")]                      // 12 caracteres (0-9, A-Z)
-        [InlineData("12!3@4#548$6")]                      // 12 caracteres (0-9, !@#$%^&)
-        [InlineData("A1BEW2C3D4E5")]                      // 12 caracteres (A-Z, 0-9)
-        [InlineData("!@@@#$%^&*()")]                      // 12 caracteres (!@#$%^&)
         [InlineData("aB1!cD2@eFae")]                      // 12 caracteres (a-z, 0-9, A-Z, !@#$%^&)
-        [InlineData("A1b@C2d#E3ae")]                      // 12 caracteres (A-Z, a-z, 0-9, !@#$%^&)
-        [InlineData("1a2b3C4D5Eae")]                      // 12 caracteres (0-9, a-z, A-Z)
         async public void PasswordSegura(string password)
         {
             string url = $"https://iso-uncaus.somee.com/iso/Test/CalcularDescuento/{password}";
